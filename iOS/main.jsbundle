@@ -41457,6 +41457,14 @@ var styles = StyleSheet.create({
   }
 });
 
+var filterMobile = function(item) {
+    if (item[0]
+      && item[0].label
+      && item[0].label === 'Mobile') {
+      return true;
+    }
+    return false;
+  }
 
 for(var Component____Key in Component){if(Component.hasOwnProperty(Component____Key)){ContactList[Component____Key]=Component[Component____Key];}}var ____SuperProtoOfComponent=Component===null?null:Component.prototype;ContactList.prototype=Object.create(____SuperProtoOfComponent);ContactList.prototype.constructor=ContactList;ContactList.__superConstructor__=Component;
 
@@ -41475,8 +41483,12 @@ for(var Component____Key in Component){if(Component.hasOwnProperty(Component____
   };
 
 
-  ContactList.prototype.filterMobilePhone=function(item) {
-    if (item.phoneNumbers && item.phoneNumbers[0]) {
+
+
+  ContactList.prototype.filterPhone=function(item) {
+
+    if (item.phoneNumbers
+      && item.phoneNumbers.filter(filterMobile)) {
       return true;
     }
     return false;
@@ -41484,7 +41496,7 @@ for(var Component____Key in Component){if(Component.hasOwnProperty(Component____
 
   ContactList.prototype.getContact=function() {
     AddressBook.getContacts( function(err, contacts)  {
-      var contactsWithMobile = contacts.filter(this.filterMobilePhone)
+      var contactsWithMobile = contacts.filter(this.filterPhone)
       this.setState({
         dataSource: this.state.dataSource.cloneWithRows(contactsWithMobile),
         isLoading: false
