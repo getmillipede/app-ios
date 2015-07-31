@@ -52,11 +52,12 @@ class Contact extends Component {
 composeMillipede(phone, reverse) {
 
   if (!reverse) {
-    var message = Millipede(Math.floor((Math.random() * 500) + 42)).toString()
-    message = message + "\n\n" + "Chaud devant! Mon millepatte doit passer!"
+    var message = "Chaud devant! Mon millepatte doit passer!\n"
+    message = Millipede(Math.floor((Math.random() * 500) + 42)).toString()
+    
   } else {
-     var message = message + "\n\n" + "Aaah, il est passé !"
-     message = Millipede(Math.floor((Math.random() * 500) + 42), { reverse: true }).toString()
+     var message = Millipede(Math.floor((Math.random() * 500) + 42), { reverse: true }).toString()
+     message = message + "\n" + "Aaah, il est passé !"
     
   }
 
