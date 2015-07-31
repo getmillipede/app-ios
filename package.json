@@ -1,14 +1,19 @@
 {
-  "name": "millipede",
+  "name": "react-millipede",
   "version": "0.0.1",
   "private": true,
   "scripts": {
     "start": "node_modules/react-native/packager/packager.sh"
   },
   "dependencies": {
+    "assert": "^1.3.0",
+    "lodash": "^3.10.0",
+    "millipede": "^1.2.1",
     "react-native": "^0.4.1",
     "react-native-addressbook": "^1.1.5",
     "react-native-message-composer": "0.0.2",
-    "react-native-router": "^0.2.1"
+    "react-native-router": "^0.2.1",
+    "react-native-search-bar": "*",
+    "util": "^0.10.3"
   }
 }

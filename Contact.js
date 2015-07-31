@@ -2,8 +2,10 @@
 
 var AddressBook = require('react-native-addressbook'),
   Composer = require('NativeModules').RNMessageComposer,
+  Millipede = require('millipede'),
   React = require('react-native'),
-  Router = require('react-native-router');
+  Router = require('react-native-router'),
+  _ = require('lodash');
 
 var {
   ActivityIndicatorIOS,
@@ -30,7 +32,7 @@ var styles = StyleSheet.create({
   },
   title: {
     fontSize: 20,
-    marginBottom: 40
+    marginBottom: 40,
   },
   button: {
     padding: 20,
@@ -38,6 +40,7 @@ var styles = StyleSheet.create({
     fontSize: 24,
     borderRadius: 4,
     borderWidth: 0.5,
+    textAlign: 'center',
     color: '#d6d7da',
     borderColor: '#d6d7da',
   },
@@ -46,29 +49,17 @@ var styles = StyleSheet.create({
 
 class Contact extends Component {
 
-composeMillipede(phone) {
+composeMillipede(phone, reverse) {
 
-  var message = '    ╚⊙ ⊙╝\n' +
-    '  ╚═(███)═╝\n' +
-    ' ╚═(███)═╝\n' + 
-    '╚═(███)═╝\n' +
-    ' ╚═(███)═╝\n' +
-    '  ╚═(███)═╝\n' +
-    '   ╚═(███)═╝\n' +
-    '    ╚═(███)═╝\n' +
-    '    ╚═(███)═╝\n' +
-    '   ╚═(███)═╝\n' +
-    '  ╚═(███)═╝\n' +
-    ' ╚═(███)═╝\n' +
-    '╚═(███)═╝\n' +
-    ' ╚═(███)═╝\n' +
-    '  ╚═(███)═╝\n' +
-    '   ╚═(███)═╝\n' +
-    '    ╚═(███)═╝\n' +
-    '    ╚═(███)═╝\n' +
-    '   ╚═(███)═╝\n' +
-    '  ╚═(███)═╝\n' +
-    ' ╚═(███)═╝';
+  if (!reverse) {
+    var message = Millipede(Math.floor((Math.random() * 500) + 42)).toString()
+    message = message + "\n\n" + "Chaud devant! Mon millepatte doit passer!"
+  } else {
+     var message = Millipede(Math.floor((Math.random() * 500) + 42), { reverse: true }).toString()
+    message = message + "\n\n" + "Aaah, il est passé !"
+  }
+
+  message = message + "\n\n" + "Envoyé depuis l'application Millipede"
 
   Composer.composeMessageWithArgs(
     {
@@ -90,8 +81,11 @@ composeMillipede(phone) {
           <Text style={styles.title}>Send a millipede to {contact.firstName} {contact.lastName}</Text>
         </View>
         <View>
-       <TouchableOpacity onPress={() => this.composeMillipede(contact.phoneNumbers[0].number) }>
-          <Text style={styles.button}>Send it!</Text>
+       <TouchableOpacity onPress={() => this.composeMillipede(contact.phoneNumbers[0].number, false) }>
+          <Text style={styles.button}>Send a millipede</Text>
+        </TouchableOpacity>
+         <TouchableOpacity onPress={() => this.composeMillipede(contact.phoneNumbers[0].number, true) }>
+          <Text style={styles.button}>Sen a reverse millipede</Text>
         </TouchableOpacity>
         </View>
       </View>

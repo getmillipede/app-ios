@@ -1,6 +1,7 @@
 'use strict';
 
-var AddressBook = require('react-native-addressbook'),
+var _ = require('lodash'),
+  AddressBook = require('react-native-addressbook'),
   Contact = require('./Contact'),
   React = require('react-native'),
   Router = require('react-native-router');
@@ -75,9 +76,13 @@ class ContactList extends Component {
 
   getContact() {
     AddressBook.getContacts( (err, contacts) => {
-      var contactsWithMobile = contacts.filter(this.filterMobilePhone)
+      
+      var contactsCleaned =  _.sortBy(_.where(contacts, {'phoneNumbers':  [{'label': 'mobile'}]}), 'firstName');
+      // var contactsSorted = _.sortBy(contactsCleaned, 'firstName');
+      // console.log(contactsSorted);
+      // var contactsWithMobile = contacts.filter(this.filterMobilePhone)
       this.setState({
-        dataSource: this.state.dataSource.cloneWithRows(contactsWithMobile),
+        dataSource: this.state.dataSource.cloneWithRows(contactsCleaned),
         isLoading: false
       });
     })
@@ -97,11 +102,14 @@ class ContactList extends Component {
     }
  
     return (
+
+      // <Text>{this.state.dataSource}</Text>
       <ListView
         dataSource={this.state.dataSource}
         renderRow={this.renderContact.bind(this)}
         style={styles.listView}
       />
+
     )
   }
 
