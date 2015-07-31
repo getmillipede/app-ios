@@ -55,11 +55,12 @@ composeMillipede(phone, reverse) {
     var message = Millipede(Math.floor((Math.random() * 500) + 42)).toString()
     message = message + "\n\n" + "Chaud devant! Mon millepatte doit passer!"
   } else {
-     var message = Millipede(Math.floor((Math.random() * 500) + 42), { reverse: true }).toString()
-    message = message + "\n\n" + "Aaah, il est passé !"
+     var message = message + "\n\n" + "Aaah, il est passé !"
+     message = Millipede(Math.floor((Math.random() * 500) + 42), { reverse: true }).toString()
+    
   }
 
-  message = message + "\n\n" + "Envoyé depuis l'application Millipede"
+  message = message + "\n\n" + "Envoyé depuis l'application getmillipede"
 
   Composer.composeMessageWithArgs(
     {
